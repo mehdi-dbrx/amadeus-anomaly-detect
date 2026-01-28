@@ -1,0 +1,9 @@
+{
+  "name": "amadeus-anomaly-app-browser",
+  "version": "1.0.0",
+  "description": "Static Angular app server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
