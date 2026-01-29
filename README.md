@@ -46,6 +46,7 @@ For setup and deployment instructions, see **[`app/doc/SETUP.md`](app/doc/SETUP.
 
 ### Development & Design
 
+- **[`app/doc/ARCHITECTURE.md`](app/doc/ARCHITECTURE.md)** - System architecture diagrams and component interactions
 - **[`app/doc/APP-DESIGN.md`](app/doc/APP-DESIGN.md)** - Application architecture and design decisions
 - **[`app/doc/STYLE-DESIGN.md`](app/doc/STYLE-DESIGN.md)** - UI/UX design guidelines and styling best practices
 - **[`app/doc/ANOMALY-FEATURE-PLAN.md`](app/doc/ANOMALY-FEATURE-PLAN.md)** - Feature implementation plan for anomaly detection functionality
