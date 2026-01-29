@@ -1,0 +1,9 @@
+{
+  "watch": ["server.js"],
+  "ext": "js,json",
+  "ignore": ["node_modules", "*.log"],
+  "env": {
+    "PORT": "8000"
+  },
+  "delay": 500
+}
