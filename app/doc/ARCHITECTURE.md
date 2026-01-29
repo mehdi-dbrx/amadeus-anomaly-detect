@@ -14,43 +14,43 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
                                 │ Angular Dev Server Proxy (/api/**)
                                 │
 ┌───────────────────────────────▼─────────────────────────────────────────────┐
-│                    Angular 18 Frontend Application                           │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  Components:                                                        │   │
-│  │  • app.component.ts (Main Layout)                                 │   │
-│  │  • anomaly-table.component.ts (Data Display & Detection UI)       │   │
-│  │  • pipeline-stepper.component.ts (Progress Visualization)         │   │
-│  │  • sidebar-menu.component.ts (Navigation)                         │   │
-│  │  • data-table.component.ts (Flight Data Table)                   │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  Services:                                                           │   │
-│  │  • data.service.ts (Flight Data API)                               │   │
-│  │  • anomaly.service.ts (Anomaly Detection API)                      │   │
-│  │  • error-logger.service.ts (Error Tracking)                        │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
+│                    Angular 18 Frontend Application                          │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  Components:                                                        │    │
+│  │  • app.component.ts (Main Layout)                                   │    │
+│  │  • anomaly-table.component.ts (Data Display & Detection UI)         │    │
+│  │  • pipeline-stepper.component.ts (Progress Visualization)           │    │
+│  │  • sidebar-menu.component.ts (Navigation)                           │    │
+│  │  • data-table.component.ts (Flight Data Table)                      │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  Services:                                                          │    │
+│  │  • data.service.ts (Flight Data API)                                │    │
+│  │  • anomaly.service.ts (Anomaly Detection API)                       │    │
+│  │  • error-logger.service.ts (Error Tracking)                         │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 └───────────────────────────────┬─────────────────────────────────────────────┘
                                 │
                                 │ REST API (/api/**)
                                 │ JSON over HTTP
                                 │
 ┌───────────────────────────────▼─────────────────────────────────────────────┐
-│                    Node.js Backend Server                                    │
+│                    Node.js Backend Server                                   │
 │                    (server.js on port 8000)                                 │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  API Endpoints:                                                      │   │
+│  ┌────────────────────────────────────────────────────────────────────┐    │
+│  │  API Endpoints:                                                    │   │
 │  │  • GET  /api/anomaly-updates     → Query flight data               │   │
 │  │  • POST /api/anomaly-detect      → Start detection pipeline        │   │
 │  │  • GET  /api/anomaly-detect/status → Poll pipeline progress        │   │
-│  │  • POST /api/anomaly-detect/cancel → Cancel detection             │   │
+│  │  • POST /api/anomaly-detect/cancel → Cancel detection              │   │
 │  │  • POST /api/log-error           → Log client errors               │   │
 │  │  • GET  /api/debug/jobs          → Debug active jobs               │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
+│  └────────────────────────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  Job Management:                                                    │   │
 │  │  • activeJobs Map (in-memory job tracking)                          │   │
-│  │  • AbortController (cancellation support)                          │   │
-│  │  • Progress tracking (currentStep, batches, etc.)                  │   │
+│  │  • AbortController (cancellation support)                           │   │
+│  │  • Progress tracking (currentStep, batches, etc.)                   │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 └───────────────┬───────────────────────────────┬─────────────────────────────┘
                 │                               │
@@ -71,7 +71,7 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         Frontend: User Clicks                                │
+│                         Frontend: User Clicks                               │
 │                    "Detect Anomalies" Button                                │
 └───────────────────────────────┬─────────────────────────────────────────────┘
                                 │
@@ -79,8 +79,8 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
                                 │ { date: "2026-01-29" }
                                 │
 ┌───────────────────────────────▼─────────────────────────────────────────────┐
-│                    Backend: Create Job & Return 202                          │
-│                    { jobId: "job_123...", status: "processing" }           │
+│                    Backend: Create Job & Return 202                         │
+│                    { jobId: "job_123...", status: "processing" }            │
 └───────────────────────────────┬─────────────────────────────────────────────┘
                                 │
                                 │ Frontend starts polling every 500ms
@@ -134,22 +134,22 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
                                 │ Polling receives: { completed: true, result: {...} }
                                 │
 ┌───────────────────────────────▼─────────────────────────────────────────────┐
-│                    Frontend: Display Results                                  │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
+│                    Frontend: Display Results                                │
+│  ┌────────────────────────────────────────────────────────────────────  ─┐  │
 │  │ Summary Cards:                                                        │  │
 │  │ • Total Routes                                                        │  │
 │  │ • Anomalies Detected                                                  │  │
 │  │ • Normal Routes                                                       │  │
 │  │ • Anomaly Percentage                                                  │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │ Anomalies Table:                                                     │  │
-│  │ • Route (formatted as ORIGIN→DESTINATION)                           │  │
-│  │ • Origin/Destination Cities & Countries                             │  │
-│  │ • Avg Seats                                                          │  │
-│  │ • Deviation (σ)                                                      │  │
-│  │ • Deviation (%) (colored: blue=+, red=-)                            │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
+│  └────────────────────────────────────────────────────────────────────  ─┘  │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │ Anomalies Table:                                                    │    │
+│  │ • Route (formatted as ORIGIN→DESTINATION)                           │    │
+│  │ • Origin/Destination Cities & Countries                             │    │
+│  │ • Avg Seats                                                         │    │
+│  │ • Deviation (σ)                                                     │    │
+│  │ • Deviation (%) (colored: blue=+, red=-)                            │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -190,8 +190,8 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
                                 │ HTTP Requests
                                 │
 ┌───────────────────────────────▼─────────────────────────────────────────────┐
-│                        Backend Server (server.js)                            │
-│                                                                             │
+│                        Backend Server (server.js)                          │
+│                                                                           │
 │  ┌─────────────────────────────────────────────────────────────────────┐  │
 │  │  Request Handlers:                                                  │  │
 │  │  • /api/anomaly-updates → executeDatabricksQuery()                  │  │
@@ -199,14 +199,14 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
 │  │  • /api/anomaly-detect/status → Return job status                   │  │
 │  │  • /api/anomaly-detect/cancel → Cancel job                          │  │
 │  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
+│                                                                           │
 │  ┌─────────────────────────────────────────────────────────────────────┐  │
 │  │  Pipeline Functions:                                                │  │
-│  │  • Step 1: Load & aggregate data from SQL Warehouse                │  │
+│  │  • Step 1: Load & aggregate data from SQL Warehouse                 │  │
 │  │  • Step 2: Create route features                                    │  │
 │  │  • Step 3: Aggregate statistics                                     │  │
-│  │  • Step 4: Invoke MLflow model endpoint                            │  │
-│  │  • Step 5: Calculate deviation metrics                               │  │
+│  │  • Step 4: Invoke MLflow model endpoint                             │  │
+│  │  • Step 5: Calculate deviation metrics                              │  │
 │  │  • Step 6: Enrich with IATA data                                    │  │
 │  │  • Step 7: Format and return results                                │  │
 │  └─────────────────────────────────────────────────────────────────────┘  │
@@ -214,7 +214,7 @@ This document provides an ASCII diagram of the Amadeus Anomaly Detection applica
                                 │
                 ┌───────────────┴───────────────┐
                 │                               │
-    ┌───────────▼──────────┐      ┌────────────▼────────────┐
+    ┌───────────▼──────────┐      ┌────────────▼──────────┐
     │  Databricks SQL API  │      │  MLflow Serving API    │
     │                      │      │                        │
     │  POST /sql/statements│      │  POST /invocations     │
